@@ -8,9 +8,12 @@
    m4_makerchip_module   // (Expanded in Nav-TLV pane.)
 
 \TLV
-   $reset = *reset;
+   
+\TLV
    |calc
       @1
+         $reset = *reset;
+         $valid = ($reset == 1) ? 0 : !(>>1$valid);
          $valid_or_reset = $reset || $valid ;
       ?$valid_or_reset
          @1
@@ -20,10 +23,8 @@
             $diff[31:0] = $val1 - $val2 ;
             $prod[31:0] = $val1 * $val2 ;
             $quot[31:0] = $val1 / $val2 ;
-            $valid = $reset ? 0 : (>>1$valid + 1);
          @2
             $out[31:0] = ($op[1:0] == 2'b00) ? $sum : ($op[1:0] == 2'b01) ? $diff : ($op[1:0] == 2'b10) ? $prod : $quot;
-
 
       // Macro instantiations for calculator visualization(disabled by default).
       // Uncomment to enable visualisation, and also,
