@@ -9,11 +9,10 @@
 
 \TLV
    
-\TLV
    |calc
       @1
          $reset = *reset;
-         $valid = ($reset == 1) ? 0 : !(>>1$valid);
+         $valid = $reset ? 0 : (>>1$valid + 1);
          $valid_or_reset = $reset || $valid ;
       ?$valid_or_reset
          @1
@@ -24,7 +23,9 @@
             $prod[31:0] = $val1 * $val2 ;
             $quot[31:0] = $val1 / $val2 ;
          @2
-            $out[31:0] = ($op[1:0] == 2'b00) ? $sum : ($op[1:0] == 2'b01) ? $diff : ($op[1:0] == 2'b10) ? $prod : $quot;
+            $mem[31:0] = ($reset == 1) ? 0 : ($op[2:0] == 3'b100) ? >>2$val1 : 0;
+            $out[31:0] = ($reset == 1) ? 0 : ($op[2:0] == 3'b000) ? $sum : ($op == 3'b001) ? $diff : ($op == 3'b010) ? $prod : ($op == 3'b011) ? $quot: >>2$mem;
+            
 
       // Macro instantiations for calculator visualization(disabled by default).
       // Uncomment to enable visualisation, and also,
@@ -33,7 +34,7 @@
       //       You can, however, safely use these specific random signals as described in the videos:
       //  o $rand1[3:0]
       //  o $rand2[3:0]
-      //  o $op[x:0]
+      //  o $op[2:0]
       
    //m4+cal_viz(@3) // Arg: Pipeline stage represented by viz, should be atleast equal to last stage of CALCULATOR logic.
 
