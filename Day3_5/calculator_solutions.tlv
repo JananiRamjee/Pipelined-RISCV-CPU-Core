@@ -11,7 +11,7 @@
    $reset = *reset;
    |calc
       @1
-         $valid_or_reset = $reset || !$valid ;
+         $valid_or_reset = $reset || $valid ;
       ?$valid_or_reset
          @1
             $val1[31:0] = >>2$out;
