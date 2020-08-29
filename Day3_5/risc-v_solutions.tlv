@@ -40,7 +40,7 @@
    |cpu
       @0
          $reset = *reset;
-         $inc_pc[31:0] = (>>1$inc_pc == $reset) ? 0 : >>1$inc_pc + 32'h4;
+         $inc_pc[31:0] = (>>1$reset) ? 0 : >>1$inc_pc + 32'h4;
       // YOUR CODE HERE
       // ...
 
