@@ -59,17 +59,18 @@
          $rd_valid = $is_r_instr || $is_j_instr || $is_u_instr || $is_i_instr;
          ?$rs2_valid
             $rs2[4:0] = $instr[24:20];
-            $rf_rd_en2 = $rs2_valid;
+            $rf_rd_en2 = 1'b1;
             $rf_rd_index2[4:0] = $rs2;
             $funct3[2:0] = $instr[14:12];
          ?$rs1_valid
             $rs1[4:0] = $instr[19:15];
-            $rf_rd_en1 = $rs1_valid;
+            $rf_rd_en1 = 1'b1;
             $rf_rd_index1[4:0] = $rs1;
          ?$is_r_instr
             $funct7[6:0] = $instr[31:25];
          ?$rd_valid
             $rd[4:0] = $instr[11:7];
+            
          $opcode[6:0] = $instr[6:0];
          $dec_bits[10:0] = {$funct7[5],$funct3,$opcode};
          $is_beq = $dec_bits ==? 11'bx_000_1100011;
@@ -84,7 +85,10 @@
          $src1_value[31:0] = $rf_rd_data1[31:0];
          $src2_value[31:0] = $rf_rd_data2[31:0];
          $result[31:0] = $is_addi ? $src1_value + $imm : $is_add ? $src1_value + $src2_value : 32'bx;
-         
+         ?$rd_valid
+            $rf_wr_index[4:0] = $rd;
+            $rf_wr_en = ($rd != 5'b0) ? 1'b1 : 1'b0;
+            $rf_write_data = $result;
       // Note: Because of the magic we are using for visualisation, if visualisation is enabled below,
       //       be sure to avoid having unassigned signals (which you might be using for random inputs)
       //       other than those specifically expected in the labs. You'll get strange errors for these.
