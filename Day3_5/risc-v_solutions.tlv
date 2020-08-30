@@ -54,6 +54,19 @@
          $is_r_instr = ($instr[6:2] == 5'b01011) || ($instr[6:2] == 5'b01100) || ($instr[6:2] == 5'b01110) || ($instr[6:2] == 5'b11100) || ($instr[6:2] ==? 5'b100xx);
          $imm[31:0] =  $is_i_instr ? {{21{$instr[31]}},$instr[30:20]} : $is_s_instr ? {{21{$instr[31]}}, $instr[30:25], $instr[11:7]} : $is_b_instr ? {{20{$instr[31]}}, $instr[7], $instr[30:25], $instr[11:8], 12'b000000000000} : $is_u_instr ? {$instr[31], $instr[30:12], 12'b0} : {{12{$instr[31]}}, $instr[19:12], $instr[20], $instr[30:21], 1'b0};
          
+         $rs2_valid = $is_r_instr || $is_s_instr || $is_b_instr;
+         $rs1_valid = $is_r_instr || $is_s_instr || $is_b_instr || $is_i_instr;
+         $rd_valid = $is_r_instr || $is_j_instr || $is_u_instr || $is_i_instr;
+         ?$rs2_valid
+            $rs2[4:0] = $instr[24:20];
+            $funct3[2:0] = $instr[14:12];
+         ?$rs1_valid
+            $rs1[4:0] = $instr[19:15];
+         ?$is_r_instr
+            $funct7[6:0] = $instr[31:25];
+         ?$rd_valid
+            $rd[4:0] = $instr[11:7];
+         $opcode[6:0] = $instr[6:0];
       // Note: Because of the magic we are using for visualisation, if visualisation is enabled below,
       //       be sure to avoid having unassigned signals (which you might be using for random inputs)
       //       other than those specifically expected in the labs. You'll get strange errors for these.
