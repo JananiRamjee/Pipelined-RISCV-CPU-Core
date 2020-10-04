@@ -189,10 +189,10 @@
          $dmem_wr_data[31:0] = $src2_value;
       @5
          $ld_data[31:0] = $dmem_rd_data;
-         //*passed = |cpu/xreg[17]>>5$value == (1+2+3+4+5+6+7+8+9);
+         *passed = |cpu/xreg[17]>>5$value == (1+2+3+4+5+6+7+8+9);
 
    // Assert these to end simulation (before Makerchip cycle limit).
-   *passed = *cyc_cnt > 40;
+   //*passed = *cyc_cnt > 40;
    
    *failed = 1'b0;
 
