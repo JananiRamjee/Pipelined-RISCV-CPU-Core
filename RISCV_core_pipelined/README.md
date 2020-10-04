@@ -39,6 +39,6 @@ Transaction-Level Verilog (TL-Verilog) is an emerging extension to SystemVerilog
 Makerchip is a free online environment for developing high-quality integrated circuits. You can code, compile, simulate, and debug Verilog designs, all from your browser. Your code, block diagrams, and waveforms are tightly integrated. The online environment has been used to compile the codes.
 
 ## Acknowledgement
-I am highly grateful for the workshop conducted by Mr. Steve Hoover, Founder, Redwood EDA and Mr. Kunal Ghosh, CEO, VSD for conducting the workshop and introducing TL-Verilog and helping in completing a pipelined RISC-V CPU core.
+I am highly grateful for the workshop conducted by Mr. Steve Hoover, Founder, Redwood EDA and Mr. Kunal Ghosh, CEO, VSD Corp. for conducting the workshop and introducing TL-Verilog and helping in completing a pipelined RISC-V CPU core.
 
     
