@@ -5,4 +5,5 @@ The following were done :
 2. Learning TL-Verilog
 3. Building a simple calculator
 4. Building a pipelined RISC-V CPU core
+
 The snippets and code are in the respective folders named accordingly
